@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <header>
+      <header className={`${file ? 'has-file' : ''}`}>
         <img src={logo} className="logo" alt="Artify logo" />
       </header>
       <main>

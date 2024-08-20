@@ -15,7 +15,7 @@ function LandingPage({ setFile }) {
 
   return (
     <>
-       <div>
+       <div className="main-wrapper">
           <img src={banner} className="banner" alt="banner" />
         </div>
         <div className="info">
