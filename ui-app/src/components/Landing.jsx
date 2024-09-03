@@ -1,16 +1,19 @@
 import { useRef } from "react";
 import banner from "../assets/banner.png";
+import { uploadImage } from '../apis/apis.js';
 
-function LandingPage({ setFile }) {
+function LandingPage({ setFile, setFileName }) {
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
+    const fileName = await uploadImage(file);
     setFile(file);
+    setFileName(fileName);
   };
 
   return (

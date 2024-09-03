@@ -4,13 +4,13 @@ import Sidebar from '../Sidebar/Sidebar';
 import MainScreen from '../MainScreen/MainScreen';
 import './Editor.css';
 
-function EditorPage({ file }) {
+function EditorPage({ file, fileName }) {
   return (
     <div className="editor-wrapper">
       <Navbar />
-      <div class="main">
+      <div className="main">
       <Sidebar />
-      <MainScreen file={file}/>
+      <MainScreen file={file} fileName={fileName} />
       </div>
     </div>
   );

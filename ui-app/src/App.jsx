@@ -7,6 +7,7 @@ import "./App.css";
 
 function App() {
   const [ file, setFile ] = useState();
+  const [ fileName, setFileName ] = useState();
 
   return (
     <>
@@ -14,7 +15,7 @@ function App() {
         <img src={logo} className="logo" alt="Artify logo" />
       </header>
       <main>
-        {file ? <Editor file={file} /> : <LandingPage setFile={setFile}/>}
+        {file ? <Editor file={file} fileName={fileName}/> : <LandingPage setFile={setFile} setFileName={setFileName} />}
       </main>
     </>
   );
