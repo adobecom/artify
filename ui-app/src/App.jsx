@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo from "./assets/logo.png";
 import LandingPage from "./components/Landing";
-import Editor from './components/Editor';
+import Editor from './components/Editor/Editor';
 
 import "./App.css";
 
