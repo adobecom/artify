@@ -15,7 +15,23 @@ const uploadImage = async (file) => {
   return fileName;
 }
 
-const applyEffect = async (prompt, fileName) => {
+const applyEffect = async (effect, fileName) => {
+  const res = await fetch(`${url}/${effect}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ fileName })
+  });
+  if (!res.ok) {
+      throw new Error('Processing failed');
+  }
+  const { modifiedImageUrl } = await res.json();
+
+  return `${url}${modifiedImageUrl}`;
+}
+
+const processImage = async (prompt, fileName) => {
   const res = await fetch(`${url}/process-image`, {
     method: 'POST',
     headers: {
@@ -34,7 +50,9 @@ const applyEffect = async (prompt, fileName) => {
 export {
   uploadImage,
   applyEffect,
+  processImage,
 };
+
 
 
 

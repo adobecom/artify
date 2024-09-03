@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './MainScreen.css';
-// import { applyEffect  } from '../../apis/apis';
+import { processImage  } from '../../apis/apis';
 import {Paper, Box, InputBase, IconButton} from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -11,11 +11,13 @@ function MainScreen({ file, fileName }) {
   const [prompt, setPrompt] =  useState('');
 
   async function onClickCommand() {
-    // const fileUrl = await applyEffect(prompt, fileName);
+    console.log('onClickCommand')
+    const fileUrl = await processImage(prompt, fileName);
     setFileUrl(fileUrl);
   }
 
   function onChangePrompt(e) {
+    console.log(e)
     setPrompt(e.currentTarget.value);
   }
   
@@ -73,11 +75,13 @@ function MainScreen({ file, fileName }) {
       }}
     >
       <InputBase
+        value={prompt}
+        onChange={onChangePrompt}
         sx={{ ml: 1, flex: 1 }}
         placeholder="Type your command"
         inputProps={{ 'aria-label': 'Type your command' }}
       />
-      <IconButton type="submit" sx={{ p: '10px' }} aria-label="send">
+      <IconButton type="submit" sx={{ p: '10px' }} aria-label="send" onClick={onClickCommand}>
         <SendIcon color='primary'/>
       </IconButton>
     </Paper>
