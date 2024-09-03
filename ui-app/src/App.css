@@ -1,13 +1,17 @@
-
-
 .logo {
   height: 5em;
 }
 
 main {
   display: flex;
-  margin-top: 80px;
   overflow: hidden;
+}
+
+.landing {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 80px;
 }
 
 header {

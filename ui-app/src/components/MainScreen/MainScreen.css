@@ -2,6 +2,10 @@
     margin: 70px auto;
 }
 
+.image-area {
+  width: 700px;
+  height: 550px;
+}
 
 .search-bar {
     margin-top: 20px;

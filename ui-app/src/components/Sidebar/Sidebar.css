@@ -1,5 +1,10 @@
 .sidebar {
     width: 400px;
     height: 100vh;
-    background-color: #e6e6e6;
+    background-color: #fcf1fd;
+    padding: 30px;
+}
+
+.item {
+    height: 100px;
 }

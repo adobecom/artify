@@ -9,8 +9,8 @@ function EditorPage({ file, fileName }) {
     <div className="editor-wrapper">
       <Navbar />
       <div className="main">
-      <Sidebar />
-      <MainScreen file={file} fileName={fileName} />
+        <Sidebar />
+        <MainScreen file={file} fileName={fileName} />
       </div>
     </div>
   );

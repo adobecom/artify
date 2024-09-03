@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import banner from "../assets/banner.png";
-import { uploadImage } from '../apis/apis.js';
+// import { uploadImage } from '../apis/apis.js';
 
 function LandingPage({ setFile, setFileName }) {
   const fileInputRef = useRef(null);
@@ -11,13 +11,15 @@ function LandingPage({ setFile, setFileName }) {
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
-    const fileName = await uploadImage(file);
+    // revert these lines
+    // const fileName = await uploadImage(file);
+    const fileName = 'xyz.png';
     setFile(file);
     setFileName(fileName);
   };
 
   return (
-    <>
+    <div className="landing">
        <div className="main-wrapper">
           <img src={banner} className="banner" alt="banner" />
         </div>
@@ -36,7 +38,7 @@ function LandingPage({ setFile, setFileName }) {
             </div>
           </div>
         </div>
-    </>
+    </div>
   );
 }
 
