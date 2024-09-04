@@ -8,10 +8,11 @@ import FaceIcon from '@mui/icons-material/Face';
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 import './MainScreen.css';
 
-function MainScreen({ fileName, setFileUrl, fileUrl, uploading }) {
+function MainScreen({ fileName, setFileUrl, fileUrl, uploading, setImgState, imgState, originalFile }) {
   const [prompt, setPrompt] =  useState('');
-  const [isLoading, setIsLoading] = useState(uploading);
-  const [imgState, setImgState ] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  // const [imgState, setImgState ] = useState('');
 
   async function onClickCommand(event) {
     event.preventDefault();
@@ -64,16 +65,14 @@ function MainScreen({ fileName, setFileUrl, fileUrl, uploading }) {
           <Box
             component="img"
             sx={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
+              height: '500px',
               opacity: isLoading? '0.4' : '1'
             }}
             alt="Centered Image"
-            src={fileUrl}
+            src={imgState == 'modified' ? fileUrl : originalFile}
           />
           </Box>
-          {isLoading ? (
+          {isLoading || uploading ? (
             <CircularProgress
               sx={{
                 position: 'absolute',

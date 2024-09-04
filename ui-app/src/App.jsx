@@ -11,11 +11,14 @@ function App() {
   const [fileName, setFileName] = useState(null);
   const [fileUrl, setFileUrl] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [originalFile, setOriginalFile] = useState('');
 
   const handleFileChange = async (event) => {
+    event.preventDefault();
     const file = event.target.files[0];
     setUploading(true);
     setFileUrl(URL.createObjectURL(file));
+    setOriginalFile(URL.createObjectURL(file));
     const fileName = await uploadImage(file);
     setUploading(false);
     setFileName(fileName);
@@ -27,12 +30,14 @@ function App() {
         <img src={logo} className="logo" alt="Artify logo" />
       </header>
       <main>
-        {uploading ? (
+        {fileUrl ? (
           <Editor
             fileName={fileName}
             setFileUrl={setFileUrl}
             fileUrl={fileUrl}
             uploading={uploading}
+            setUploading={setUploading}
+            originalFile={originalFile}
           />
         ) : (
           <LandingPage

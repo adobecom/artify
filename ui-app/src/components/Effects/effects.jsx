@@ -6,7 +6,7 @@ import effectImage3 from '../../assets/effects/effect3.png';
 import effectImage4 from '../../assets/effects/effect4.png';
 import effectImage5 from '../../assets/effects/effect5.png';
 import effectImage6 from '../../assets/effects/effect6.png';
-// import { applyEffect } from '../../apis/apis';
+import { applyEffect } from '../../apis/apis';
 
 
 const imageData = [
@@ -21,12 +21,12 @@ const imageData = [
   // { img: 'https://via.placeholder.com/150', title: 'Image 9', key: 9 },
 ];
 
-export default function Effects({ file, fileName, setFileUrl, fileUrl }) {
+export default function Effects({ file, fileName, setFileUrl, fileUrl, setUploading, setImgState }) {
   return (
     <ImageList gap={0} cols={3}>
       {imageData.map((item) => (
         <ImageListItem key={item.img}>
-          <Button onClick={() => handleImageClick(item.key, fileName, setFileUrl)}>
+          <Button onClick={() => handleImageClick(item.key, fileName, setFileUrl, setUploading, setImgState)}>
             <img
               src={`${item.img}`}
               alt={item.title}
@@ -39,7 +39,10 @@ export default function Effects({ file, fileName, setFileUrl, fileUrl }) {
   );
 }
 
-async function handleImageClick(effect, fileName, setFileUrl) {
-//   const urlImg = await applyEffect(effect, fileName);
-//   setFileUrl(urlImg);
+async function handleImageClick(effect, fileName, setFileUrl, setUploading, setImgState) {
+  setUploading(true);
+  const urlImg = await applyEffect(effect, fileName);
+  setFileUrl(urlImg);
+  setUploading(false);
+  setImgState('modified');
 }
