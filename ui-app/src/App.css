@@ -10,22 +10,21 @@ main {
 .landing {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
   margin-top: 80px;
-}
-
-header {
-  margin-top: 60px;
+  column-gap: 80px;
+  width: 100%;
 }
 
 .info {
-  width: 400px; 
+  width: 450px; 
   margin-left: 40px;
+  align-self: center;
 }
 
 .upload-container {
   width: 400px; 
-  height: 147px; 
+  height: 200px; 
   background: #FFFFFFFF; 
   border-radius: 0px; 
   border-width: 2px; 
@@ -57,4 +56,5 @@ header {
   line-height: 18px; 
   font-weight: 400; 
   color: #171A1FFF;
+  margin-top: 8px;
 }

@@ -20,7 +20,7 @@ function LandingPage({ setFile, setFileName }) {
   return (
     <div className="landing">
        <div className="main-wrapper">
-          <img src={banner} className="banner" alt="banner" />
+          <img src={banner} className="banner-img" alt="banner" />
         </div>
         <div className="info">
           <h2>Add magic and transform your images in one go</h2>
