@@ -6,7 +6,7 @@ import effectImage3 from '../../assets/effects/effect3.png';
 import effectImage4 from '../../assets/effects/effect4.png';
 import effectImage5 from '../../assets/effects/effect5.png';
 import effectImage6 from '../../assets/effects/effect6.png';
-import { applyEffect } from '../../apis/apis';
+// import { applyEffect } from '../../apis/apis';
 
 
 const imageData = [
@@ -40,6 +40,6 @@ export default function Effects({ file, fileName, setFileUrl, fileUrl }) {
 }
 
 async function handleImageClick(effect, fileName, setFileUrl) {
-  const urlImg = await applyEffect(effect, fileName);
-  setFileUrl(urlImg);
+//   const urlImg = await applyEffect(effect, fileName);
+//   setFileUrl(urlImg);
 }

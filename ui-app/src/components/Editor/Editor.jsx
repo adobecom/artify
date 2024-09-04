@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../Navbar/Navbar';
 import Sidebar from '../Sidebar/Sidebar';
 import MainScreen from '../MainScreen/MainScreen';
+// import ButtonPanel from '../ButtonPanel/ButtonPanel';
 import './Editor.css';
 
 function EditorPage({ file, fileName, setFileUrl, fileUrl }) {
@@ -11,6 +12,7 @@ function EditorPage({ file, fileName, setFileUrl, fileUrl }) {
       <div className="main">
         <Sidebar file={file} fileName={fileName} setFileUrl={setFileUrl} fileUrl={fileUrl}/>
         <MainScreen file={file} fileName={fileName} setFileUrl={setFileUrl} fileUrl={fileUrl}/>
+        {/* <ButtonPanel /> */}
       </div>
     </div>
   );

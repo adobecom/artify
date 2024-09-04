@@ -1,94 +1,111 @@
 import React, { useState } from 'react';
 import './MainScreen.css';
-import { processImage  } from '../../apis/apis';
+// import { processImage  } from '../../apis/apis';
 import {Paper, Box, InputBase, IconButton} from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Typography } from '@mui/material';
+import CommandPrompt from '../CommandPrompt/CommandPrompt';
+import CircularProgress from '@mui/material/CircularProgress';
+import Fab from '@mui/material/Fab';
+import FaceIcon from '@mui/icons-material/Face';
+import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
 
-function MainScreen({ file, fileName,setFileUrl,fileUrl }) {
+function MainScreen({ file, fileName, setFileUrl, fileUrl }) {
   // const [fileUrl, setFileUrl] = useState(URL.createObjectURL(file));
   const [prompt, setPrompt] =  useState('');
+  const [isLoading, setIsLoading] = useState(null);
+  const [imgState, setImgState ] = useState('');
 
   async function onClickCommand(event) {
     event.preventDefault();
-    const fileUrl = await processImage(prompt, fileName);
-    console.log('filena,e', fileName);
-    setFileUrl(fileUrl);
+    setIsLoading(true);
+    try {
+      // const fileUrl = await processImage(prompt, fileName);
+      // console.log('filename', fileName);
+      // setFileUrl(fileUrl);
+      setImgState('modified');
+    } catch (error) {
+      // console.error("Error processing image:", error);
+    } finally {
+      setIsLoading(false); // Hide loader
+    }
   }
 
   function onChangePrompt(e) {
     console.log(e)
     setPrompt(e.currentTarget.value);
   }
+
+  function handleIconToggle() {
+    setImgState((state) => {
+      if(state === 'original') return 'modified';
+      else return 'original';
+    });
+  }
   
   return (
     <div className="main-screen">
-      <Paper
-      elevation={3}
-      sx={{
-        backgroundColor: '#eeeeee',
-        width: 800,
-        height: 500,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-      }}
-    >
       <Box
-        component="img"
         sx={{
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover'
+          position: 'relative',
+          width: 800,
+          height: 500,
         }}
-        alt="Centered Image"
-        src={fileUrl}
-      />
-    </Paper>
-    
-    <Typography sx={{ color: '#D459E1', fontWeight: 'bold', margin: '24px 0 8px 0' }}>
-      Ask Artify
-    </Typography>
-  <Paper
-      elevation={2}
-      sx={{
-        backgroundColor: 'white',
-        height: 80,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        overflow: 'hidden',
-      }}
-    >
-      <ArrowForwardIosIcon color='primary' />
-      <Paper
-      elevation={0}
-      component="form"
-      sx={{
-        p: '2px 4px',
-        display: 'flex',
-        alignItems: 'center',
-        width: 750,
-        borderRadius: '20px',
-        backgroundColor: '#eeeeee'
-      }}
-    >
-      <InputBase
-        value={prompt}
-        onChange={onChangePrompt}
-        sx={{ ml: 1, flex: 1 }}
-        placeholder="Type your command"
-        inputProps={{ 'aria-label': 'Type your command' }}
-      />
-      <IconButton type="submit" sx={{ p: '10px' }} aria-label="send" onClick={onClickCommand}>
-        <SendIcon color='primary'/>
-      </IconButton>
-    </Paper>
-    </Paper>
-
-      
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            backgroundColor: '#eeeeee',
+            width: 800,
+            height: 500,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            overflow: 'hidden',
+          }}
+        >
+          <Box sx = {{ bgcolor: 'rgba(0, 0, 0, 1)', zIndex: 3}} > 
+          <Box
+            component="img"
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              opacity: isLoading? '0.4' : '1'
+            }}
+            alt="Centered Image"
+            src={fileUrl}
+          />
+          </Box>
+          {isLoading ? (
+            <CircularProgress
+              sx={{
+                position: 'absolute',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 4,
+              }}
+            />
+            ) : (
+              <></>
+          )}
+        </Paper>
+        <Fab
+          color="secondary"
+          aria-label="face"
+          disabled={imgState === ''}
+          sx={{
+            position: 'absolute',
+            width: '28px',
+            height: '28px',
+            minHeight: '24px',
+            bottom: 8,
+            right: 8,
+            zIndex: 4,
+          }}
+          onClick={handleIconToggle}
+        >
+          {imgState === 'modified' ? <FaceIcon sx={{ fontSize: 20 }} /> : <FaceRetouchingNaturalIcon sx={{ fontSize: 20 }} />}
+        </Fab>
+      </Box>
+      <CommandPrompt prompt={prompt} onClickCommand={onClickCommand} onChangePrompt={onChangePrompt}/> 
     </div>
   );
 }
