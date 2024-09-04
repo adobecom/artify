@@ -1,4 +1,4 @@
-const url = 'http://10.193.71.126:5000';
+const url = 'http://192.168.0.182:5000';
 
 const uploadImage = async (file) => {
   const formData = new FormData();

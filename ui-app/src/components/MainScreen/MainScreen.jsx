@@ -6,13 +6,14 @@ import SendIcon from '@mui/icons-material/Send';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Typography } from '@mui/material';
 
-function MainScreen({ file, fileName }) {
-  const [fileUrl, setFileUrl] = useState(URL.createObjectURL(file));
+function MainScreen({ file, fileName,setFileUrl,fileUrl }) {
+  // const [fileUrl, setFileUrl] = useState(URL.createObjectURL(file));
   const [prompt, setPrompt] =  useState('');
 
-  async function onClickCommand() {
-    console.log('onClickCommand')
+  async function onClickCommand(event) {
+    event.preventDefault();
     const fileUrl = await processImage(prompt, fileName);
+    console.log('filena,e', fileName);
     setFileUrl(fileUrl);
   }
 
