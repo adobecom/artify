@@ -5,13 +5,13 @@ import MainScreen from '../MainScreen/MainScreen';
 // import ButtonPanel from '../ButtonPanel/ButtonPanel';
 import './Editor.css';
 
-function EditorPage({ file, fileName, setFileUrl, fileUrl }) {
+function EditorPage({ fileName, setFileUrl, fileUrl, uploading }) {
   return (
     <div className="editor-wrapper">
       <Navbar />
       <div className="main">
-        <Sidebar file={file} fileName={fileName} setFileUrl={setFileUrl} fileUrl={fileUrl}/>
-        <MainScreen file={file} fileName={fileName} setFileUrl={setFileUrl} fileUrl={fileUrl}/>
+        <Sidebar fileName={fileName} setFileUrl={setFileUrl} fileUrl={fileUrl}/>
+        <MainScreen fileName={fileName} setFileUrl={setFileUrl} fileUrl={fileUrl} uploading={uploading} />
         {/* <ButtonPanel /> */}
       </div>
     </div>

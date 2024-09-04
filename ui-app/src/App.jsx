@@ -4,38 +4,39 @@ import LandingPage from "./components/Landing";
 import Editor from './components/Editor/Editor';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from "../theme";
+import { uploadImage } from './apis/apis.js';
 import "./App.css";
 
 function App() {
-  const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [fileUrl, setFileUrl] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
-  useEffect(() => {
-    if (file) {
-      setFileUrl(URL.createObjectURL(file));
-    }
-  }, [file]);
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    setUploading(true);
+    setFileUrl(URL.createObjectURL(file));
+    const fileName = await uploadImage(file);
+    setUploading(false);
+    setFileName(fileName);
+  };
 
   return (
     <ThemeProvider theme={theme}>
-      <header className={`${file ? 'has-file' : ''}`}>
+      <header className={`${fileUrl ? 'has-file' : ''}`}>
         <img src={logo} className="logo" alt="Artify logo" />
       </header>
       <main>
-        {file ? (
+        {uploading ? (
           <Editor
-            file={file}
             fileName={fileName}
             setFileUrl={setFileUrl}
             fileUrl={fileUrl}
+            uploading={uploading}
           />
         ) : (
           <LandingPage
-            setFile={setFile}
-            setFileName={setFileName}
-            setFileUrl={setFileUrl}
-            fileUrl={fileUrl}
+            handleFileChange={handleFileChange}
           />
         )}
       </main>

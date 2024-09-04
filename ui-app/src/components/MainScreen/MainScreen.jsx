@@ -1,29 +1,27 @@
 import React, { useState } from 'react';
-import './MainScreen.css';
-// import { processImage  } from '../../apis/apis';
-import {Paper, Box, InputBase, IconButton} from '@mui/material';
+import { processImage  } from '../../apis/apis';
+import {Paper, Box } from '@mui/material';
 import CommandPrompt from '../CommandPrompt/CommandPrompt';
 import CircularProgress from '@mui/material/CircularProgress';
 import Fab from '@mui/material/Fab';
 import FaceIcon from '@mui/icons-material/Face';
 import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
+import './MainScreen.css';
 
-function MainScreen({ file, fileName, setFileUrl, fileUrl }) {
-  // const [fileUrl, setFileUrl] = useState(URL.createObjectURL(file));
+function MainScreen({ fileName, setFileUrl, fileUrl, uploading }) {
   const [prompt, setPrompt] =  useState('');
-  const [isLoading, setIsLoading] = useState(null);
+  const [isLoading, setIsLoading] = useState(uploading);
   const [imgState, setImgState ] = useState('');
 
   async function onClickCommand(event) {
     event.preventDefault();
     setIsLoading(true);
     try {
-      // const fileUrl = await processImage(prompt, fileName);
-      // console.log('filename', fileName);
-      // setFileUrl(fileUrl);
+      const fileUrl = await processImage(prompt, fileName);
+      setFileUrl(fileUrl);
       setImgState('modified');
     } catch (error) {
-      // console.error("Error processing image:", error);
+      console.error("Error processing image:", error);
     } finally {
       setIsLoading(false); // Hide loader
     }
