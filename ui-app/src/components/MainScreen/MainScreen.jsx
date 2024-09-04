@@ -61,17 +61,17 @@ function MainScreen({ fileName, setFileUrl, fileUrl, uploading, setImgState, img
             overflow: 'hidden',
           }}
         >
-          <Box sx = {{ bgcolor: 'rgba(0, 0, 0, 1)', zIndex: 3}} > 
           <Box
             component="img"
             sx={{
               height: '500px',
+              display: 'block',
+              margin: 'auto',
               opacity: isLoading? '0.4' : '1'
             }}
             alt="Centered Image"
             src={imgState == 'modified' ? fileUrl : originalFile}
           />
-          </Box>
           {isLoading || uploading ? (
             <CircularProgress
               sx={{
