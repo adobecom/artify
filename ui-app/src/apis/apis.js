@@ -49,23 +49,19 @@ const applyEffect = async (effect, fileName) => {
 //   return `${modifiedImageUrl}`;
 // }
 
-const processImage = async (prompt, fileName) => {
+const processImage = async (prompt, fileName, modifiedName) => {
   const res = await fetch(`${url}/process-image`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ fileName, prompt })
+    body: JSON.stringify({ fileName: modifiedName || fileName, prompt })
   });
   if (!res.ok) {
       throw new Error('Processing failed');
   }
-  const { modifiedImageUrl, product } = await res.json();
-  if (product == 'firefly') {
-    return `${modifiedImageUrl}`; 
-  } else {
-    return `${url}${modifiedImageUrl}`;
-  }
+  const { modifiedImageUrl } = await res.json();
+  return { modifiedImageUrl: `${url}${modifiedImageUrl}`, modifiedImagePath: modifiedImageUrl };
 }
 
 

@@ -11,15 +11,15 @@ import './MainScreen.css';
 function MainScreen({ fileName, setFileUrl, fileUrl, uploading, setImgState, imgState, originalFile }) {
   const [prompt, setPrompt] =  useState('');
   const [isLoading, setIsLoading] = useState(false);
-
-  // const [imgState, setImgState ] = useState('');
+  const [modifiedName, setModifiedName] = useState('');
 
   async function onClickCommand(event) {
     event.preventDefault();
     setIsLoading(true);
     try {
-      const fileUrl = await processImage(prompt, fileName);
-      setFileUrl(fileUrl);
+      const { modifiedImageUrl, modifiedImagePath } = await processImage(prompt, fileName, modifiedName);
+      setModifiedName(modifiedImagePath.replace('/', ''));
+      setFileUrl(modifiedImageUrl);
       setImgState('modified');
       setPrompt('');
     } catch (error) {
@@ -68,7 +68,7 @@ function MainScreen({ fileName, setFileUrl, fileUrl, uploading, setImgState, img
               height: '500px',
               display: 'block',
               margin: 'auto',
-              opacity: isLoading? '0.4' : '1'
+              opacity: isLoading || uploading ? '0.4' : '1'
             }}
             alt="Centered Image"
             src={imgState == 'modified' ? fileUrl : originalFile}
