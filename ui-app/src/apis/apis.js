@@ -1,4 +1,5 @@
-const url = 'http://192.168.0.182:5000';
+// const url = 'http://192.168.0.182:5000';
+const url = 'http://10.193.68.37:5000';
 
 const uploadImage = async (file) => {
   const formData = new FormData();
@@ -31,6 +32,23 @@ const applyEffect = async (effect, fileName) => {
   return `${url}${modifiedImageUrl}`;
 }
 
+// const processImage = async (prompt, fileName) => {
+//   const res = await fetch(`${url}/firefly`, {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({ fileName, prompt })
+//   });
+//   if (!res.ok) {
+//       throw new Error('Processing failed');
+//   }
+//   const { modifiedImageUrl } = await res.json();
+//   console.log('modifiedImageUrl', modifiedImageUrl);
+
+//   return `${modifiedImageUrl}`;
+// }
+
 const processImage = async (prompt, fileName) => {
   const res = await fetch(`${url}/process-image`, {
     method: 'POST',
@@ -42,10 +60,14 @@ const processImage = async (prompt, fileName) => {
   if (!res.ok) {
       throw new Error('Processing failed');
   }
-  const { modifiedImageUrl } = await res.json();
-
-  return `${url}${modifiedImageUrl}`;
+  const { modifiedImageUrl, product } = await res.json();
+  if (product == 'firefly') {
+    return `${modifiedImageUrl}`; 
+  } else {
+    return `${url}${modifiedImageUrl}`;
+  }
 }
+
 
 export {
   uploadImage,
