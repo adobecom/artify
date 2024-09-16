@@ -21,6 +21,7 @@ function MainScreen({ fileName, setFileUrl, fileUrl, uploading, setImgState, img
       const fileUrl = await processImage(prompt, fileName);
       setFileUrl(fileUrl);
       setImgState('modified');
+      setPrompt('');
     } catch (error) {
       console.error("Error processing image:", error);
     } finally {
